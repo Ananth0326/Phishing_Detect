@@ -10,16 +10,20 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 import joblib
 from sqlalchemy.exc import IntegrityError
-
+from whitenoise import WhiteNoise
 # Configure Tesseract path for Windows
 #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 app = Flask(__name__)
+app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///phishing_detector.db'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+# Add this line to handle static files
+app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/") 
+app.config['SECRET_KEY'] = 'your-secret-key'
 
 db = SQLAlchemy(app)
 
