@@ -12,7 +12,7 @@ import joblib
 from sqlalchemy.exc import IntegrityError
 
 # Configure Tesseract path for Windows
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
